@@ -5,7 +5,7 @@ function GameLetters(props) {
     <div className="letterBox">
       <p className={props.className}>{props.letter}</p>
     </div>
-  )
+  );
 }
 
 export default GameLetters;

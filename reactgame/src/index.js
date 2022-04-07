@@ -1,15 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Init from './Init';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./css/index.css";
+import Init from "./Init";
 
 ReactDOM.render(
   <div className="App">
-
     <Init />
-
   </div>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-

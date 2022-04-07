@@ -1,11 +1,11 @@
-import "./Game.css";
+import "./css/Game.css";
 import React from "react";
-import GameLetters from "./GameLetters";
-import GameHeader from "./GameHeader";
-import GameWin from "./GameWin";
-import GameOver from "./GameOver";
-import GameInput from "./GameInput";
-import gameWordCheck from "./gameWordCheck";
+import GameLetters from "./GameComponents/GameLetters";
+import GameHeader from "./GameComponents/GameHeader";
+import GameWin from "./GameComponents/GameWin";
+import GameOver from "./GameComponents/GameOver";
+import GameInput from "./GameComponents/GameInput";
+import gameWordCheck from "./GameComponents/gameWordCheck";
 let output = [];
 
 function Game(props) {
@@ -23,17 +23,14 @@ function Game(props) {
 
   // Loose and win conditions.
   if (timer < 0) {
-    return (
-      <GameOver answer={answer} function={resetGame} />
-    );
-  } else if (output.length === answer.length && output.every((x) => x.result === "correct")) {
-    return (
-      <GameWin answer={answer} function={resetGame} />
-    );
+    return <GameOver answer={answer} function={resetGame} />;
+  } else if (
+    output.length === answer.length &&
+    output.every((x) => x.result === "correct")
+  ) {
+    return <GameWin answer={answer} function={resetGame} />;
   } else if (round > 5) {
-    return (
-      <GameOver answer={answer} function={resetGame} />
-    )
+    return <GameOver answer={answer} function={resetGame} />;
   }
   if (round <= 1) {
     return (
@@ -50,7 +47,11 @@ function Game(props) {
       <>
         <GameHeader round={round} timer={timer} />
         {output.map((item, index) => (
-          <GameLetters key={index} className={item.result} letter={item.letter} />
+          <GameLetters
+            key={index}
+            className={item.result}
+            letter={item.letter}
+          />
         ))}
         <GameInput function={submitFunc} />
       </>

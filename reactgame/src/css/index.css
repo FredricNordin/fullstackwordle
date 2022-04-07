@@ -22,3 +22,7 @@ body {
   font-size: 15px;
   font-weight: bold;
 }
+
+.Init button {
+  margin-top: 3rem;
+}
