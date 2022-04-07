@@ -2,9 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import { highscore } from './highscore.js';
 import words from './words.js';
+import path from 'path';
 
 // Settings.
 const app = express();
+const __dirname = path.resolve();
 app.use(express.json());
 
 // Allow React to access/fetch the server locally.
@@ -19,10 +21,22 @@ const corsOptions = {
     },
     credentials: true,
 }
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
-// Serve game build files for access.
+
+// Serve folders for access to the Game and about/highscore pages.
 app.use(express.static("./reactgame/build"));
+app.use(express.static("./public"));
+
+// Render the About page.
+app.get("/about", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/about.html"));
+});
+
+// Render the Highscores page.
+app.get("/highscores", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/highscores.html"));
+});
 
 // Get highscores.
 app.get('/api/highscore', async (req, res) => {
@@ -50,17 +64,15 @@ app.get('/api/words/:chars', async (req, res) => {
     }
 });
 
-// Get words from words.js matching the length of :chars & no repeated letters.
-app.get('/api/words/:chars/norepeat', async (req, res) => {
+// Get words from words.js matching the length of :chars with no two of the same letters. (Example: HELLO).
+app.get('/api/words/:chars/nodupes', async (req, res) => {
     const chars = parseInt(req.params.chars, 10);
     const data = words.filter(word => word.length === chars);
-    // keep only one word with no repeated letters.
-    const word = data.find(word => {
-        const letters = word.split('');
-        return letters.every(letter => letters.indexOf(letter) === letters.lastIndexOf(letter));
-    });
-    if (word) {
-        res.json(word);
+    const word = data.filter(word => word.split('').filter(letter => word.split('').filter(letter2 => letter === letter2).length === 1).length === word.length);
+    // Keep only one word.
+    const word2 = word[Math.floor(Math.random() * word.length)];
+    if (word2) {
+        res.json(word2);
     } else {
         res.status(404).send('Not found');
     }
