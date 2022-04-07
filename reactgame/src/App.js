@@ -1,45 +1,45 @@
-import './App.css';
-import React from 'react';
-import UserLetter from './UserLetter';
+import "./App.css";
+import React from "react";
+import UserLetter from "./UserLetter";
+import GameHeader from "./GameHeader";
+import GameWin from "./GameWin";
+import GameOver from "./GameOver";
+import GameInput from "./GameInput";
 let output = [];
-let answer = "garden".toUpperCase();
 
 
-function App() {
+function App(props) {
   const [round, setRound] = React.useState(1);
   const [timer, setTimer] = React.useState(60);
+  const answer = props.answer;
 
   // Substract 1 from timer every second.
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setTimer(timer => timer - 1);
+      setTimer((timer) => timer - 1);
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   // When the timer reaches 0 or over limit of rounds, the game is over.
-  if (timer < 0 || round > 5) {
+  if (timer < 0 || round > 5 && output.every((x) => x.result !== "correct")) {
     return (
-      <div className="App">
-        <h1>Game Over</h1>
-        <h2>The answer was: {answer}</h2>
-        <button className="submitBtn" onClick={resetGame}>Play again?</button>
-      </div>
+      <GameOver answer={answer} function={resetGame} />
     );
   }
 
   // Resets the game.
   function resetGame() {
     window.location.reload();
-  };
+  }
 
   // Game runtime.
   function submitFunc() {
-    if (document.getElementById("userInput").value.length === answer.length) {
+    if (document.getElementById("GameInput").value.length === answer.length) {
       output = [];
       setRound(round + 1);
 
-      const guess = document.getElementById("userInput").value.toUpperCase();
+      const guess = document.getElementById("GameInput").value.toUpperCase();
       const correctCheck = {};
 
       // Check which letters are correct.
@@ -61,53 +61,37 @@ function App() {
         }
       }
     } else {
-      alert("Please enter a word of length " + answer.length);
+      return;
     }
   }
-
-  // If output has same length as the answer, and all letters are "correct", the game is won.
-  if (output.length === answer.length && output.every(x => x.result === "correct")) {
+  if (
+    output.length === answer.length &&
+    output.every((x) => x.result === "correct")
+  ) {
     return (
-      <div className="App">
-        <h1>You win!</h1>
-        <h2>The answer was: {answer}</h2>
-        <button className="submitBtn" onClick={resetGame}>Play again?</button>
-      </div>
+      <GameWin answer={answer} function={resetGame} />
     );
   }
-
-  // Render the amount of letterboxes as amount of letters in the answer on the first round.
   if (round < 2) {
     return (
-      <div className="App">
-        <h1>Round: {round}/5 | Timer: {timer}s</h1>
-        <div className="boxes">
-
-          {/* Render the amount of letterboxes for each letter in answer. */}
-          {answer.split("").map((letter, index) => (
-            <div key={index} className="letterBox"></div>))}
-        </div>
-        <input id="userInput" type="text" />
-        <button className="submitBtn" onClick={submitFunc}>Submit</button>
-      </div>
+      <>
+        <GameHeader round={round} timer={timer} />
+        {answer.split("").map((letter, index) => (
+          <div key={index} className="letterBox"></div>
+        ))}
+        <GameInput function={submitFunc} />
+      </>
     );
-
   } else {
-    // Render the amount of letterboxes from the user's input.
     return (
-      <div className="App">
-        <h1>Round: {round}/5 | Timer: {timer}s</h1>
-        <div className="boxes">
-
-          {/* Render the amount of UserLetter components for every letter. */}
-          {output.map((item, index) => (
-            <UserLetter key={index} className={item.result} letter={item.letter} />
-          ))}
-        </div>
-        <input id="userInput" type="text"></input>
-        <button className="submitBtn" onClick={submitFunc}>Submit</button>
-      </div>
-    )
+      <>
+        <GameHeader round={round} timer={timer} />
+        {output.map((item, index) => (
+          <UserLetter key={index} className={item.result} letter={item.letter} />
+        ))}
+        <GameInput function={submitFunc} />
+      </>
+    );
   }
 }
 
