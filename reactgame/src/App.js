@@ -65,6 +65,18 @@ function App() {
     }
   }
 
+  // If output has same length as the answer, and all letters are "correct", the game is won.
+  if (output.length === answer.length && output.every(x => x.result === "correct")) {
+    return (
+      <div className="App">
+        <h1>You win!</h1>
+        <h2>The answer was: {answer}</h2>
+        <button className="submitBtn" onClick={resetGame}>Play again?</button>
+      </div>
+    );
+  }
+
+  // Render the amount of letterboxes as amount of letters in the answer on the first round.
   if (round < 2) {
     return (
       <div className="App">
@@ -81,6 +93,7 @@ function App() {
     );
 
   } else {
+    // Render the amount of letterboxes from the user's input.
     return (
       <div className="App">
         <h1>Round: {round}/5 | Timer: {timer}s</h1>
