@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 
 
 // Serve folders for access to the Game and about/highscore pages.
-app.use(express.static("./reactgame/build"));
+app.use(express.static("./reactgame/build")); // Gets rendered "/" by default.
 app.use(express.static("./public"));
 
 // Render the About page.
