@@ -1,4 +1,4 @@
-import app from './src/js/app.js'
+import app from './src/app.js'
 import mongoose from 'mongoose';
 
 // MongoDB Atlas connection details.
