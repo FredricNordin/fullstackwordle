@@ -22,7 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // Serve game build files for access.
-app.use(express.static("./GAME/build"));
+app.use(express.static("./reactgame/build"));
 
 // Get highscores.
 app.get('/api/highscore', async (req, res) => {
