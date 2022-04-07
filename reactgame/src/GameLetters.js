@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserLetter(props) {
+function GameLetters(props) {
   return (
     <div className="letterBox">
       <p className={props.className}>{props.letter}</p>
@@ -8,4 +8,4 @@ function UserLetter(props) {
   )
 }
 
-export default UserLetter;
+export default GameLetters;

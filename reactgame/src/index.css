@@ -7,6 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App {
+  text-align: center;
+  width: 600px;
+  margin: 5rem auto;
+}
+
 #letters {
   font-size: 15px;
   font-weight: bold;
