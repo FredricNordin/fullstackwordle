@@ -7,3 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#letters {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#dupes {
+  font-size: 15px;
+  font-weight: bold;
+}

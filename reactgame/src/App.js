@@ -11,7 +11,7 @@ let output = [];
 function App(props) {
   const [round, setRound] = React.useState(1);
   const [timer, setTimer] = React.useState(60);
-  const answer = props.answer;
+  const answer = props.answer.toUpperCase();
 
   // Substract 1 from timer every second.
   React.useEffect(() => {
@@ -21,11 +21,19 @@ function App(props) {
     return () => clearInterval(interval);
   }, []);
 
-  // When the timer reaches 0 or over limit of rounds, the game is over.
-  if (timer < 0 || round > 5 && output.every((x) => x.result !== "correct")) {
+  // Loose and win conditions.
+  if (timer < 0) {
     return (
       <GameOver answer={answer} function={resetGame} />
     );
+  } else if (output.length === answer.length && output.every((x) => x.result === "correct")) {
+    return (
+      <GameWin answer={answer} function={resetGame} />
+    );
+  } else if (round > 5) {
+    return (
+      <GameOver answer={answer} function={resetGame} />
+    )
   }
 
   // Resets the game.
@@ -64,15 +72,8 @@ function App(props) {
       return;
     }
   }
-  if (
-    output.length === answer.length &&
-    output.every((x) => x.result === "correct")
-  ) {
-    return (
-      <GameWin answer={answer} function={resetGame} />
-    );
-  }
-  if (round < 2) {
+
+  if (round <= 1) {
     return (
       <>
         <GameHeader round={round} timer={timer} />
