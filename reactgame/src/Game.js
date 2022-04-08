@@ -7,35 +7,43 @@ import GameOver from "./GameComponents/GameOver";
 import GameInput from "./GameComponents/GameInput";
 import gameWordCheck from "./GameComponents/gameWordCheck";
 let output = [];
+let guesses = [];
 
 function Game(props) {
   const [round, setRound] = React.useState(1);
-  const [timer, setTimer] = React.useState(60);
   const answer = props.answer.toUpperCase();
+  const time = props.time;
+  const dupes = props.dupes;
 
-  // Substract 1 from timer every second.
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((timer) => timer - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Loose and win conditions.
-  if (timer < 0) {
-    return <GameOver answer={answer} function={resetGame} />;
-  } else if (
+  // Win and lose conditions.
+  if (
     output.length === answer.length &&
     output.every((x) => x.result === "correct")
   ) {
-    return <GameWin answer={answer} function={resetGame} />;
-  } else if (round > 5) {
-    return <GameOver answer={answer} function={resetGame} />;
+    return (
+      <GameWin
+        answer={answer}
+        function={resetGame}
+        time={time}
+        guesses={guesses}
+        dupes={dupes}
+      />
+    );
+  } else if (round >= 11) {
+    return (
+      <GameOver
+        answer={answer}
+        function={resetGame}
+        time={time}
+        guesses={guesses}
+      />
+    );
   }
+
   if (round <= 1) {
     return (
       <>
-        <GameHeader round={round} timer={timer} />
+        <GameHeader round={round} letters={answer.length} />
         {answer.split("").map((letter, index) => (
           <div key={index} className="letterBox"></div>
         ))}
@@ -45,7 +53,7 @@ function Game(props) {
   } else {
     return (
       <>
-        <GameHeader round={round} timer={timer} />
+        <GameHeader round={round} letters={answer.length} />
         {output.map((item, index) => (
           <GameLetters
             key={index}
@@ -69,6 +77,7 @@ function Game(props) {
       setRound(round + 1);
       const guess = document.getElementById("GameInput").value.toUpperCase();
       output = gameWordCheck(guess, answer);
+      guesses.push(guess + ", ");
     }
   }
 }
