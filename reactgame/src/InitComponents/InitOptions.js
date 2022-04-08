@@ -12,8 +12,8 @@ function InitOptions(props) {
       </select>
       <p>Allow words with two repeated letters like 'Hello':</p>
       <select id="dupes">
-        <option value="">Yes</option>
-        <option value="nodupes">No</option>
+        <option value="allowed">Yes</option>
+        <option value="denied">No</option>
       </select>
       <br></br>
       <button className="submitBtn" onClick={props.function}>
