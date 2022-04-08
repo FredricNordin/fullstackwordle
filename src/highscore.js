@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 const highscore = mongoose.model('highscore', { // 'highscore' + 's' collection on MongoDB Atlas.
     name: String,
-    score: Number,
+    time: Number,
+    length: Number,
+    dupes: String,
+    guesses: Array,
 });
 
 export { highscore }
