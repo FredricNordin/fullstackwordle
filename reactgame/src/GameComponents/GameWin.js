@@ -9,6 +9,7 @@ function GameWin(props) {
   const answerLength = answer.length;
   const dupes = props.dupes;
 
+  // User posts highscore to the database.
   function postHighscore() {
     const getName = document.getElementById("userName").value;
     if (getName.length > 0) {
@@ -27,6 +28,8 @@ function GameWin(props) {
       }).then((response) => response.json(), window.location.reload());
     }
   }
+
+  // Render the game win component.
   return (
     <>
       <h1>🥳👍 You win! ✌️🥳</h1>

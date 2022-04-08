@@ -40,6 +40,7 @@ function Game(props) {
     );
   }
 
+  // The first round displays empty 'letterboxes' showing the length of the hidden answer.
   if (round <= 1) {
     return (
       <>
@@ -50,6 +51,8 @@ function Game(props) {
         <GameInput function={submitFunc} />
       </>
     );
+
+    // The other rounds display the letters guessed and the result of the guess.
   } else {
     return (
       <>

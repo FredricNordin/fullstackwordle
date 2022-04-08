@@ -1,4 +1,6 @@
 function GameOver(props) {
+
+  // Renders the Game Over component.
   return (
     <>
       <h1>Game Over 😢</h1>

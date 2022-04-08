@@ -5,6 +5,8 @@ import Game from "./Game";
 import InitOptions from "./InitComponents/InitOptions";
 
 function Init() {
+
+  // Fetch a random word from the API. 'dupes' means duplicate(s) letters.
   async function fetchWord() {
     const letters = document.getElementById("letters").value;
     const dupes = document.getElementById("dupes").value;
@@ -12,7 +14,6 @@ function Init() {
       "http://localhost:5080/api/words/" + letters + "/" + dupes
     );
     const data = await response.json();
-    // Get what time it is in seconds.
     const time = Math.floor(Date.now() / 1000);
     console.log(data);
 
@@ -23,6 +24,8 @@ function Init() {
       document.getElementById("root")
     );
   }
+
+  // Render the options/settings available for the word game.
   return <InitOptions function={fetchWord} />;
 }
 

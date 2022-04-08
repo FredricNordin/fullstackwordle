@@ -1,4 +1,6 @@
 function InitOptions(props) {
+  
+  // Let the user choose what kind of word they'd like.
   return (
     <div className="Init">
       <h1>Fredde's | Wordle</h1>

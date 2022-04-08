@@ -1,4 +1,6 @@
 function GameInput(props) {
+
+  // Render the inputs available for a user.
   return (
     <div className="inputs">
       <input id="GameInput" type="text"></input>
