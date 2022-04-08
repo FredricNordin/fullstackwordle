@@ -46,6 +46,7 @@ app.get('/api/highscore', async (req, res) => {
 
 // Post highscore.
 app.post('/api/highscore', async (req, res) => {
+    console.log(req.body)
     const score = new highscore(req.body);
     await score.save();
     res.json(score);
