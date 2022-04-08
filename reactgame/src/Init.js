@@ -12,10 +12,13 @@ function Init() {
       "http://localhost:5080/api/words/" + letters + "/" + dupes
     );
     const data = await response.json();
+    // Get what time it is in seconds.
+    const time = Math.floor(Date.now() / 1000);
+    console.log(data);
 
     ReactDOM.render(
       <div className="App">
-        <Game answer={data} />
+        <Game answer={data} time={time} dupes={dupes} />
       </div>,
       document.getElementById("root")
     );
