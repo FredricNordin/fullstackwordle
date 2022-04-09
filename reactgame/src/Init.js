@@ -15,7 +15,6 @@ function Init() {
     );
     const data = await response.json();
     const time = Math.floor(Date.now() / 1000);
-    console.log(data);
 
     ReactDOM.render(
       <div className="App">
