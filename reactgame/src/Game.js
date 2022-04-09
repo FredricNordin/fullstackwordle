@@ -81,6 +81,8 @@ function Game(props) {
       const guess = document.getElementById("GameInput").value.toUpperCase();
       output = gameWordCheck(guess, answer);
       guesses.push(guess + ", ");
+    } else {
+      alert("That's not a " + answer.length + " letter word!")
     }
   }
 }
