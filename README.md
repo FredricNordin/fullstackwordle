@@ -1,2 +1,3 @@
 # fullstackwordle
- fullstack wordle game lernia assignment
+ Fullstack wordle game lernia assignment.
+ MongoDB, Express, React, Node.js.
