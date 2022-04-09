@@ -15,6 +15,11 @@ body {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+.HeaderNavbar {
+  margin-top: -8rem;
+  margin-bottom: 8rem;
+}
+
 #letters {
   font-size: 15px;
   font-weight: bold;
